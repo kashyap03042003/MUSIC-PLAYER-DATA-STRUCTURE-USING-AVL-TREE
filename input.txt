@@ -1,0 +1,5 @@
+a,b,c,d,e,f,120
+d,b,c,d,e,f,118
+c,z,r,t,m,n,132
+l,k,r,t,m,n,129	
+q,m,r,t,m,n,148
