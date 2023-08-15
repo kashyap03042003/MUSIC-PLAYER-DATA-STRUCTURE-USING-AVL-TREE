@@ -577,7 +577,7 @@ void displayPlaylist(TreeNode* root)
 
 
 //q7 Given a play-list and the serial number of the song, display details of the song. At this
-//point, given an integer offset “k” and direction “up” or “down”, display the details of kth
+//point, given an integer offset â€œkâ€ and direction â€œupâ€ or â€œdownâ€, display the details of kth
 //previous or kth next song, from the current song, respectively, in the play-list.
 void DisplayplaylistDetails(TreeNode* playlist,int sNo){
 	TreeNode* currSong= findNode(playlist,sNo);
@@ -732,32 +732,7 @@ TreeNode* getSong(TreeNode *root, int offset){
 	return getSong(root->right, offset);
 }
 
-//q10
-void shuffleToSomethingElse(TreeNode *root, char **attributes, char **values, int numOfAtt){
-    int done = 0, i;
-    int flag[dataBaseCount+1];
-    for(i=1; i<=dataBaseCount; i++) flag[i] = 0;
 
-    while(!done){
-        TreeNode *reqSong;
-        int songNum = abs(rand()) % dataBaseCount + 1;
-        reqSong = getSong(root, songNum);
-        if(!flag[songNum]){
-            flag[songNum] = 1;
-            int matches = countMatches(reqSong, numOfAtt, attributes, values);
-            if(matches == numOfAtt){
-                playSong(reqSong);
-            }
-        }
-        int c = 0;
-        for(i=1; i<=dataBaseCount; i++){
-            if(flag[i] == 1){
-                c++;
-            }
-        }
-        if(c == dataBaseCount) done = 1;
-    }
-}
 
 
 
@@ -796,10 +771,9 @@ int main()
         printf("7. Print playlist with serial number and also print kth song above or below from current song\n");
         printf("8. Select one or many attributes of the current song and create a new playlist from the original database\n");
         printf("9. Filter the playlist according to given attribute's VALUE\n");
-        printf("10. Shuffle to something else\n");
-        printf("11. Perform Range Search using singer name\n");
-        printf("12. Delete all the songs from the database by taking artist name\n");
-        printf("13. Exit from the program\n");
+        printf("10. Perform Range Search using singer name\n");
+        printf("11. Delete all the songs from the database by taking artist name\n");
+        printf("12. Exit from the program\n");
         printf("\nEnter your choice: ");
 
         scanf("%d", &choice);
@@ -908,29 +882,9 @@ int main()
 				filterPlayList(new_playlist[playListCount],attribute_value);
 				break;
 			
-			case 10:
-				int numOfAtt;
-          		printf("\nEnter the number of attributes to use for the playlist: ");
-                scanf("%d", &numOfAtt);
-                for(int i=0; i<numOfAtt; i++)
-				{
-                    attributes[i] = (char*)malloc(50*sizeof(char));
-                    values[i] = (char*)malloc(50*sizeof(char));
-                    printf("\nEnter attribute %d: ", i+1);
-                    scanf("%s", attributes[i]);
-                    printf("Enter value %d: ", i+1);
-                    scanf("%s", values[i]);
-                }
-                shuffleToSomethingElse(root, attributes, values, numOfAtt);
-
-                for(int i=0; i<numOfAtt; i++)
-				{
-                    free(attributes[i]);
-                    free(values[i]);
-                }
-			    break;
+			
 				
-			case 11:
+			case 10:
 				{
 			    char singer1[50], singer2[50];
                 printf("Enter the two singer names: ");
@@ -938,7 +892,7 @@ int main()
                 performRangeSearch(root, singer1, singer2);
                 break;
 				}					    		   
-            case 12:
+            case 11:
             	char* artist_name;
                 artist_name = (char*)malloc(sizeof(char)*50);
                 printf("Enter the artist name to delete all songs for: ");
@@ -946,13 +900,13 @@ int main()
                 root = deleteSongsByArtist(root, artist_name);
                 break;
           
-            case 13:
+            case 12:
             	printf("Exiting....");
             	exit(0);
             default:
                 printf("Invalid choice. Please try again.\n");
         }
-    } while(choice!=13);
+    } while(choice!=12);
 
     return 0;
 }
